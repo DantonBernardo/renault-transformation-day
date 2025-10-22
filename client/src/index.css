@@ -1,0 +1,32 @@
+:root {
+  --primary-color: #0033a0;
+  --secondary-color: #ffcc00;
+}
+
+@font-face {
+  font-family: 'Tusker';
+  src: url('./assets/fonts/TuskerGrotesk-5500Medium.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1{
+  font-family: 'Tusker', sans-serif;
+}
+
+h2, td, th{
+  font-family: 'Archivo', sans-serif;
+}

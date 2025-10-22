@@ -1,0 +1,111 @@
+=== RELATÓRIO DE TEMPOS DOS CUBOS ===
+Data/Hora: 16/10/2025 17:13:52
+
+GRUPO 1:
+Data/Hora: 2025-10-16T17:13:24.332246
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 0.1s
+
+2. Cor: RED
+   Face: Encima
+   Tempo: 0.1s
+
+3. Cor: GREEN
+   Face: Esquerda
+   Tempo: 0.3s
+
+TEMPO TOTAL DO GRUPO: 0.4s
+==================================================
+
+GRUPO 2:
+Data/Hora: 2025-10-16T17:13:30.672006
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 0.4s
+
+2. Cor: RED
+   Face: Encima
+   Tempo: 0.4s
+
+3. Cor: WHITE
+   Face: Frente
+   Tempo: 0.1s
+
+TEMPO TOTAL DO GRUPO: 0.9s
+==================================================
+
+GRUPO 3:
+Data/Hora: 2025-10-16T17:13:42.341533
+----------------------------------------
+1. Cor: WHITE
+   Face: Frente
+   Tempo: 0.2s
+
+2. Cor: BLUE
+   Face: Direita
+   Tempo: 1.2s
+
+3. Cor: YELLOW
+   Face: Atras
+   Tempo: 0.1s
+
+TEMPO TOTAL DO GRUPO: 1.6s
+==================================================
+
+GRUPO 4:
+Data/Hora: 2025-10-16T17:13:50.225339
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 1.9s
+
+2. Cor: RED
+   Face: Encima
+   Tempo: 0.2s
+
+3. Cor: WHITE
+   Face: Frente
+   Tempo: 0.2s
+
+TEMPO TOTAL DO GRUPO: 2.3s
+==================================================
+
+GRUPO 5:
+Data/Hora: 2025-10-16T17:13:51.510303
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 0.2s
+
+2. Cor: WHITE
+   Face: Frente
+   Tempo: 0.1s
+
+3. Cor: YELLOW
+   Face: Atras
+   Tempo: 0.1s
+
+TEMPO TOTAL DO GRUPO: 0.4s
+==================================================
+
+GRUPO 6:
+Data/Hora: 2025-10-16T17:13:52.585418
+----------------------------------------
+1. Cor: WHITE
+   Face: Frente
+   Tempo: 0.6s
+
+2. Cor: BLUE
+   Face: Direita
+   Tempo: 0.1s
+
+3. Cor: YELLOW
+   Face: Atras
+   Tempo: 0.3s
+
+TEMPO TOTAL DO GRUPO: 1.0s
+==================================================
+

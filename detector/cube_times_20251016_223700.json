@@ -1,0 +1,131 @@
+{
+  "session_start": "2025-10-16T22:38:01.917922",
+  "groups_of_three": [
+    {
+      "group_number": 1,
+      "cubes": [
+        {
+          "color": "yellow",
+          "face_name": "Atras",
+          "individual_time": 0.09292316436767578,
+          "timestamp": "2025-10-16T22:37:12.625722"
+        },
+        {
+          "color": "white",
+          "face_name": "Frente",
+          "individual_time": 0.07774972915649414,
+          "timestamp": "2025-10-16T22:37:12.685591"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.7582111358642578,
+          "timestamp": "2025-10-16T22:37:18.268609"
+        }
+      ],
+      "total_group_time": 0.9288840293884277,
+      "timestamp": "2025-10-16T22:37:18.268622"
+    },
+    {
+      "group_number": 2,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.06220388412475586,
+          "timestamp": "2025-10-16T22:37:18.331848"
+        },
+        {
+          "color": "white",
+          "face_name": "Frente",
+          "individual_time": 0.5811340808868408,
+          "timestamp": "2025-10-16T22:37:18.929961"
+        },
+        {
+          "color": "yellow",
+          "face_name": "Atras",
+          "individual_time": 0.6573131084442139,
+          "timestamp": "2025-10-16T22:37:20.164354"
+        }
+      ],
+      "total_group_time": 1.3006510734558105,
+      "timestamp": "2025-10-16T22:37:20.164368"
+    },
+    {
+      "group_number": 3,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.06314277648925781,
+          "timestamp": "2025-10-16T22:37:20.260740"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.0950157642364502,
+          "timestamp": "2025-10-16T22:37:20.347273"
+        },
+        {
+          "color": "yellow",
+          "face_name": "Atras",
+          "individual_time": 0.14404630661010742,
+          "timestamp": "2025-10-16T22:37:21.767153"
+        }
+      ],
+      "total_group_time": 0.30220484733581543,
+      "timestamp": "2025-10-16T22:37:21.767163"
+    },
+    {
+      "group_number": 4,
+      "cubes": [
+        {
+          "color": "yellow",
+          "face_name": "Atras",
+          "individual_time": 0.0773169994354248,
+          "timestamp": "2025-10-16T22:37:22.082387"
+        },
+        {
+          "color": "white",
+          "face_name": "Frente",
+          "individual_time": 3.3100368976593018,
+          "timestamp": "2025-10-16T22:37:27.865450"
+        },
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 2.620396852493286,
+          "timestamp": "2025-10-16T22:37:47.366608"
+        }
+      ],
+      "total_group_time": 6.007750749588013,
+      "timestamp": "2025-10-16T22:37:47.366624"
+    },
+    {
+      "group_number": 5,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.21821022033691406,
+          "timestamp": "2025-10-16T22:37:52.440292"
+        },
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 0.5159358978271484,
+          "timestamp": "2025-10-16T22:37:54.054982"
+        },
+        {
+          "color": "blue",
+          "face_name": "Direita",
+          "individual_time": 0.9789321422576904,
+          "timestamp": "2025-10-16T22:38:01.917292"
+        }
+      ],
+      "total_group_time": 1.713078260421753,
+      "timestamp": "2025-10-16T22:38:01.917304"
+    }
+  ],
+  "total_groups": 5
+}

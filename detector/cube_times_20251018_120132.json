@@ -1,0 +1,81 @@
+{
+  "session_start": "2025-10-18T12:05:20.694924",
+  "groups_of_three": [
+    {
+      "group_number": 1,
+      "cubes": [
+        {
+          "color": "white",
+          "face_name": "Frente",
+          "individual_time": 0.06157326698303223,
+          "timestamp": "2025-10-18T12:03:01.087239"
+        },
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.3456094264984131,
+          "timestamp": "2025-10-18T12:04:33.360527"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.27951478958129883,
+          "timestamp": "2025-10-18T12:04:37.619544"
+        }
+      ],
+      "total_group_time": 0.6866974830627441,
+      "timestamp": "2025-10-18T12:04:37.619561"
+    },
+    {
+      "group_number": 2,
+      "cubes": [
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.04799795150756836,
+          "timestamp": "2025-10-18T12:04:56.672867"
+        },
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.4090259075164795,
+          "timestamp": "2025-10-18T12:04:57.916623"
+        },
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 0.12357950210571289,
+          "timestamp": "2025-10-18T12:05:09.841777"
+        }
+      ],
+      "total_group_time": 0.5806033611297607,
+      "timestamp": "2025-10-18T12:05:09.841790"
+    },
+    {
+      "group_number": 3,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 0.12446355819702148,
+          "timestamp": "2025-10-18T12:05:10.457403"
+        },
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 4.384770631790161,
+          "timestamp": "2025-10-18T12:05:17.896820"
+        },
+        {
+          "color": "yellow",
+          "face_name": "Atras",
+          "individual_time": 2.7998623847961426,
+          "timestamp": "2025-10-18T12:05:20.694342"
+        }
+      ],
+      "total_group_time": 7.309096574783325,
+      "timestamp": "2025-10-18T12:05:20.694353"
+    }
+  ],
+  "total_groups": 3
+}

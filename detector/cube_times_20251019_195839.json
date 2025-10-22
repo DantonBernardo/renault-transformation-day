@@ -1,0 +1,56 @@
+{
+  "session_start": "2025-10-19T19:59:15.445629",
+  "groups_of_three": [
+    {
+      "group_number": 1,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 3.8397128582000732,
+          "timestamp": "2025-10-19T19:58:57.532028"
+        },
+        {
+          "color": "blue",
+          "face_name": "Direita",
+          "individual_time": 6.734562158584595,
+          "timestamp": "2025-10-19T19:59:04.271020"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.06198453903198242,
+          "timestamp": "2025-10-19T19:59:04.332682"
+        }
+      ],
+      "total_group_time": 10.63625955581665,
+      "timestamp": "2025-10-19T19:59:04.332697"
+    },
+    {
+      "group_number": 2,
+      "cubes": [
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 2.018493890762329,
+          "timestamp": "2025-10-19T19:59:06.399628"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 3.0236189365386963,
+          "timestamp": "2025-10-19T19:59:09.376341"
+        },
+        {
+          "color": "blue",
+          "face_name": "Direita",
+          "individual_time": 1.4799139499664307,
+          "timestamp": "2025-10-19T19:59:15.444938"
+        }
+      ],
+      "total_group_time": 6.522026777267456,
+      "timestamp": "2025-10-19T19:59:15.444952"
+    }
+  ],
+  "total_groups": 2
+}

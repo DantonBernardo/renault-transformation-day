@@ -1,0 +1,123 @@
+.notifications-container {
+  width: 1650px;
+  margin: 2rem auto;
+  background: #fff;
+}
+
+.notifications-title {
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #172A4B;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #F4C62C;
+  display: inline-block;
+}
+
+.notifications-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(23, 42, 75, 0.1);
+}
+
+.notifications-container thead {
+  background: linear-gradient(135deg, #172A4B, #214484);
+  color: white;
+}
+
+.notifications-container th {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.notifications-container td {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  background: #fff;
+}
+
+.notifications-container tr:last-child td {
+  border-bottom: none;
+}
+
+.notifications-container tr:hover td {
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+/* Status colors */
+.notifications-container .late {
+  color: #dc2626;
+  font-weight: 600;
+  background: rgba(220, 38, 38, 0.1) !important;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.notifications-container .early {
+  color: #059669;
+  font-weight: 600;
+  background: rgba(5, 150, 105, 0.1) !important;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+/* Destaque para o cubo */
+.notifications-container td strong {
+  color: #172A4B;
+  font-weight: 600;
+}
+
+/* Responsivo com scroll */
+@media (max-width: 1700px) {
+  .notifications-container {
+    width: 95vw;
+    overflow-x: auto;
+  }
+  
+  .notifications-container table {
+    min-width: 1400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .notifications-container {
+    padding: 1.5rem;
+    width: 100vw;
+  }
+  
+  .notifications-container th,
+  .notifications-container td {
+    padding: 1rem 1.25rem;
+  }
+  
+  .notifications-container h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Animações */
+.notifications-container table {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
