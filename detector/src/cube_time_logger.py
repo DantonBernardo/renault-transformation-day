@@ -1,6 +1,8 @@
 import json
 import os
 import requests
+import threading
+import time
 from datetime import datetime
 from collections import defaultdict
 
@@ -27,6 +29,39 @@ class CubeTimeLogger:
         self.json_file = f"cube_times_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         
         # Logger de tempos iniciado silenciosamente
+        
+        # Fila para requisições assíncronas
+        self.request_queue = []
+        self.is_sending = False
+        
+        # Configuração para envio de API
+        self.enable_api_send = True  # Mude para False para desabilitar envio
+    
+    def send_to_api_async(self, payload):
+        """Envia dados para API de forma assíncrona ultra-rápida"""
+        def send_request():
+            try:
+                # Timeout reduzido para 2 segundos (mais rápido)
+                response = requests.post("http://127.0.0.1:8000/api/groups", 
+                                       json=payload, 
+                                       timeout=2,  # Timeout reduzido
+                                       headers={'Content-Type': 'application/json'})
+                if response.status_code == 201:
+                    print("✅ Grupo enviado com sucesso para a API!")
+                else:
+                    print(f"❌ Falha ao enviar grupo: {response.status_code}")
+            except requests.exceptions.Timeout:
+                print("⏰ Timeout ao enviar grupo para API (2s)")
+            except requests.exceptions.ConnectionError:
+                print("🔌 Erro de conexão com API - Laravel pode estar offline")
+            except Exception as e:
+                print(f"❌ Erro ao enviar grupo para API: {e}")
+            finally:
+                self.is_sending = False
+        
+        # Executa em thread separada para não travar a câmera
+        thread = threading.Thread(target=send_request, daemon=True)
+        thread.start()
     
     def add_cube(self, color, individual_time):
         """Adiciona um cubo ao grupo atual (apenas se a cor não existir no grupo)"""
@@ -52,14 +87,22 @@ class CubeTimeLogger:
     
     def finalize_group(self):
         """Finaliza um grupo de 3 cubos com cores diferentes e calcula o tempo total"""
+        # VALIDAÇÃO RIGOROSA: Só processa se tiver exatamente 3 cubos diferentes
         if len(self.current_group) != 3:
+            print(f"⚠️ Grupo incompleto: {len(self.current_group)}/3 cubos")
             return
 
         colors = [cube['color'] for cube in self.current_group]
         if len(set(colors)) != 3:
+            print(f"⚠️ Cores duplicadas detectadas: {colors}")
             return
 
+        # Calcula tempo total do grupo
         group_total_time = sum(cube['individual_time'] for cube in self.current_group)
+        
+        print(f"🎯 GRUPO COMPLETO! Tempo total: {group_total_time:.2f}s")
+        cubes_info = [f"{c['color']}({c['individual_time']:.1f}s)" for c in self.current_group]
+        print(f"   Cubos: {cubes_info}")
 
         group_data = {
             'group_number': self.group_number,
@@ -73,8 +116,27 @@ class CubeTimeLogger:
         self.analyze_delays()
 
         # ------------------------------
-        # ENVIA PARA API AUTOMATICAMENTE
+        # VALIDAÇÃO E ENVIO PARA API (ASSÍNCRONO)
         # ------------------------------
+        
+        # VALIDAÇÃO FINAL: Garante que temos exatamente 3 cubos válidos
+        if len(self.current_group) != 3:
+            print("❌ ERRO: Grupo não tem 3 cubos!")
+            return
+            
+        # Valida cada cubo individualmente
+        valid_cubes = []
+        for cube in self.current_group:
+            if (cube.get('color') and 
+                cube.get('face_name') and 
+                cube.get('individual_time', 0) > 0):
+                valid_cubes.append(cube)
+        
+        if len(valid_cubes) != 3:
+            print(f"❌ ERRO: Apenas {len(valid_cubes)}/3 cubos válidos!")
+            return
+        
+        # Monta payload com validação
         payload = {
             "group_time": group_total_time,
             "cubes": [
@@ -82,18 +144,18 @@ class CubeTimeLogger:
                     "color": cube["color"].upper(),
                     "face": cube["face_name"],
                     "individual_time": cube["individual_time"]
-                } for cube in self.current_group
+                } for cube in valid_cubes
             ]
         }
+        
+        print(f"📤 Enviando grupo #{self.group_number} para API...")
+        print(f"   Tempo total: {group_total_time:.2f}s")
 
-        try:
-            response = requests.post("http://127.0.0.1:8000/api/groups", json=payload)
-            if response.status_code == 201:
-                print("Grupo enviado com sucesso para a API!")
-            else:
-                print(f"Falha ao enviar grupo: {response.status_code} - {response.text}")
-        except Exception as e:
-            print(f"Erro ao enviar grupo para API: {e}")
+        # Envia de forma assíncrona para não travar a câmera (se habilitado)
+        if self.enable_api_send:
+            self.send_to_api_async(payload)
+        else:
+            print("📝 Envio para API desabilitado - dados salvos apenas localmente")
 
         self.current_group = []
         self.group_number += 1
@@ -142,6 +204,12 @@ class CubeTimeLogger:
         """Força a finalização do grupo atual (mesmo que não tenha 3 cubos)"""
         if self.current_group:
             self.finalize_group()
+    
+    def toggle_api_send(self):
+        """Alterna o envio para API (útil para debug)"""
+        self.enable_api_send = not self.enable_api_send
+        status = "habilitado" if self.enable_api_send else "desabilitado"
+        print(f"🔄 Envio para API {status}")
     
     def get_summary(self):
         """Retorna um resumo dos dados"""

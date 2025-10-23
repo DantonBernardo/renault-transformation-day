@@ -1,18 +1,18 @@
 import './style.css';
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Chart, LineController, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { useDataContext } from '../../contexts/DataContext';
+import { useApiPolling } from '../../hooks/useApiCache';
 
 // registra apenas o necessário pro gráfico de linha
 Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
-export default function LatestGroupTime() {
+export default function LatestGroupTimeRealTime() {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
-  const { latestTimes, loading } = useDataContext();
+  const { data, loading, error } = useApiPolling("http://127.0.0.1:8000/api/latest-group-times", {}, 10000); // Atualiza a cada 10 segundos
 
   const chartData = useMemo(() => {
-    if (!latestTimes || latestTimes.length === 0) {
+    if (!data || data.length === 0) {
       return {
         labels: [],
         datasets: [{
@@ -28,8 +28,8 @@ export default function LatestGroupTime() {
       };
     }
 
-    const labels = latestTimes.map((g) => `#${g.id}`);
-    const times = latestTimes.map((g) => g.group_time);
+    const labels = data.map((g) => `#${g.id}`);
+    const times = data.map((g) => g.group_time);
     
     return {
       labels,
@@ -46,7 +46,7 @@ export default function LatestGroupTime() {
         },
       ],
     };
-  }, [latestTimes]);
+  }, [data]);
 
   const chartConfig = useMemo(() => ({
     type: "line",
@@ -60,11 +60,15 @@ export default function LatestGroupTime() {
         y: { beginAtZero: true, title: { display: true, text: "Tempo (s)" } },
         x: { title: { display: true, text: "Grupo" } },
       },
+      animation: {
+        duration: 1000, // Animação suave para atualizações
+        easing: 'easeInOutQuart'
+      }
     },
   }), [chartData]);
 
   useEffect(() => {
-    if (!loading.latestTimes && chartRef.current && latestTimes) {
+    if (!loading && chartRef.current && data) {
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
       }
@@ -74,14 +78,15 @@ export default function LatestGroupTime() {
     }
 
     return () => chartInstanceRef.current?.destroy();
-  }, [loading.latestTimes, chartConfig, latestTimes]);
+  }, [loading, chartConfig, data]);
 
   return (
     <div className="latest-group-time">
-      <h2 className="chart-title">Tempos de grupo recentes</h2>
+      <h2 className="chart-title">Tempos de grupo recentes (Tempo Real)</h2>
       <div className="chart-container">
         <canvas ref={chartRef} width={400} height={400}></canvas>
       </div>
+      {loading && <p className="loading-indicator">Atualizando dados...</p>}
     </div>
   );
 }

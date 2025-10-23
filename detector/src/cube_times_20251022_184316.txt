@@ -1,0 +1,21 @@
+=== RELATÓRIO DE TEMPOS DOS CUBOS ===
+Data/Hora: 22/10/2025 18:43:46
+
+GRUPO 1:
+Data/Hora: 2025-10-22T18:43:46.263762
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 0.2s
+
+2. Cor: WHITE
+   Face: Frente
+   Tempo: 4.0s
+
+3. Cor: RED
+   Face: Encima
+   Tempo: 3.4s
+
+TEMPO TOTAL DO GRUPO: 7.5s
+==================================================
+

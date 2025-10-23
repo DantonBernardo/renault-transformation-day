@@ -1,0 +1,57 @@
+=== RELATÓRIO DE TEMPOS DOS CUBOS ===
+Data/Hora: 23/10/2025 00:36:52
+
+GRUPO 1:
+Data/Hora: 2025-10-23T00:34:30.536546
+----------------------------------------
+1. Cor: WHITE
+   Face: Frente
+   Tempo: 0.8s
+
+2. Cor: BLUE
+   Face: Direita
+   Tempo: 1.2s
+
+3. Cor: YELLOW
+   Face: Atras
+   Tempo: 1.4s
+
+TEMPO TOTAL DO GRUPO: 3.5s
+==================================================
+
+GRUPO 2:
+Data/Hora: 2025-10-23T00:35:15.875275
+----------------------------------------
+1. Cor: BLUE
+   Face: Direita
+   Tempo: 1.3s
+
+2. Cor: WHITE
+   Face: Frente
+   Tempo: 1.2s
+
+3. Cor: GREEN
+   Face: Esquerda
+   Tempo: 1.2s
+
+TEMPO TOTAL DO GRUPO: 3.7s
+==================================================
+
+GRUPO 3:
+Data/Hora: 2025-10-23T00:36:52.061196
+----------------------------------------
+1. Cor: RED
+   Face: Encima
+   Tempo: 1.9s
+
+2. Cor: WHITE
+   Face: Frente
+   Tempo: 1.5s
+
+3. Cor: BLUE
+   Face: Direita
+   Tempo: 1.0s
+
+TEMPO TOTAL DO GRUPO: 4.5s
+==================================================
+

@@ -1,0 +1,81 @@
+{
+  "session_start": "2025-10-22T01:50:06.350783",
+  "groups_of_three": [
+    {
+      "group_number": 1,
+      "cubes": [
+        {
+          "color": "blue",
+          "face_name": "Direita",
+          "individual_time": 2.975383758544922,
+          "timestamp": "2025-10-22T01:47:12.731960"
+        },
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 4.234456777572632,
+          "timestamp": "2025-10-22T01:47:17.192674"
+        },
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 3.6771860122680664,
+          "timestamp": "2025-10-22T01:47:21.206650"
+        }
+      ],
+      "total_group_time": 10.88702654838562,
+      "timestamp": "2025-10-22T01:47:21.206744"
+    },
+    {
+      "group_number": 2,
+      "cubes": [
+        {
+          "color": "green",
+          "face_name": "Esquerda",
+          "individual_time": 3.6635732650756836,
+          "timestamp": "2025-10-22T01:49:45.599328"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 5.203552961349487,
+          "timestamp": "2025-10-22T01:49:50.981080"
+        },
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 5.619051218032837,
+          "timestamp": "2025-10-22T01:49:51.247640"
+        }
+      ],
+      "total_group_time": 14.486177444458008,
+      "timestamp": "2025-10-22T01:49:51.247752"
+    },
+    {
+      "group_number": 3,
+      "cubes": [
+        {
+          "color": "blue",
+          "face_name": "Direita",
+          "individual_time": 4.19964337348938,
+          "timestamp": "2025-10-22T01:49:55.367637"
+        },
+        {
+          "color": "orange",
+          "face_name": "Embaixo",
+          "individual_time": 0.0,
+          "timestamp": "2025-10-22T01:50:03.692521"
+        },
+        {
+          "color": "red",
+          "face_name": "Encima",
+          "individual_time": 4.638800859451294,
+          "timestamp": "2025-10-22T01:50:06.349872"
+        }
+      ],
+      "total_group_time": 8.838444232940674,
+      "timestamp": "2025-10-22T01:50:06.349979"
+    }
+  ],
+  "total_groups": 3
+}

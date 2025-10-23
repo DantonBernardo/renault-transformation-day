@@ -1,7 +1,8 @@
 import './style.css';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import Loading from '../Loading';
+import { useDataContext } from '../../contexts/DataContext';
 
 // registra os componentes necessários pro gráfico de barras
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -12,73 +13,60 @@ const LABELS = ["White", "Red", "Orange", "Blue", "Yellow", "Green"];
 export default function AvgColor() {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
-  const [loading, setLoading] = useState(true);
+  const { averages, loading } = useDataContext();
 
-  const fetchData = async () => {
-    const promises = COLORS.map(async (color) => {
-      try {
-        const res = await fetch(`http://127.0.0.1:8000/api/average/${color}`);
-        const data = await res.json();
-        return data.average_individual_time || 0;
-      } catch (err) {
-        console.error(err);
-        return 0;
-      } finally {
-        setLoading(false);
-      }
-    });
-    return await Promise.all(promises);
-  };
+  const dataValues = useMemo(() => {
+    if (!averages) return COLORS.map(() => 0);
+    return COLORS.map(color => averages[color] || 0);
+  }, [averages]);
+
+  const chartConfig = useMemo(() => ({
+    type: "bar",
+    data: {
+      labels: LABELS,
+      datasets: [
+        {
+          label: "Tempo médio (s)",
+          data: dataValues,
+          backgroundColor: [
+            "rgba(244, 240, 240, 0.7)",
+            "rgba(255, 0, 0, 0.7)",
+            "rgba(255, 165, 0, 0.7)",
+            "rgba(0, 0, 255, 0.7)",
+            "rgba(255, 255, 0, 0.7)",
+            "rgba(0, 255, 0, 0.7)"
+          ],
+          borderWidth: 1
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "top" },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  }), [dataValues]);
 
   useEffect(() => {
-    const loadChart = async () => {
-      const dataValues = await fetchData();
-
+    if (!loading.averages && chartRef.current && averages) {
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
       }
 
       const ctx = chartRef.current.getContext("2d");
-      chartInstanceRef.current = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: LABELS,
-          datasets: [
-            {
-              label: "Tempo médio (s)",
-              data: dataValues,
-              backgroundColor: [
-                "rgba(244, 240, 240, 0.7)",
-                "rgba(255, 0, 0, 0.7)",
-                "rgba(255, 165, 0, 0.7)",
-                "rgba(0, 0, 255, 0.7)",
-                "rgba(255, 255, 0, 0.7)",
-                "rgba(0, 255, 0, 0.7)"
-              ],
-              borderWidth: 1
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: "top" },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    };
-
-    loadChart();
+      chartInstanceRef.current = new Chart(ctx, chartConfig);
+    }
 
     return () => chartInstanceRef.current?.destroy();
-  }, []);
+  }, [loading.averages, chartConfig, averages]);
 
-  if (loading) return <Loading />;
+  if (loading.averages) return <Loading />;
 
   return (
     <div className="avgColor">
