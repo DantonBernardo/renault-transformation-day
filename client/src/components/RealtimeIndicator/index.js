@@ -1,10 +1,10 @@
 import './style.css';
 
-export default function RealtimeIndicator({ isPolling, lastUpdate }) {
-  // const formatTime = (date) => {
-  //   if (!date) return 'Nunca';
-  //   return date.toLocaleTimeString('pt-BR');
-  // };
+export default function RealtimeIndicator({ isPolling, lastUpdate, sseConnected }) {
+  const formatTime = (date) => {
+    if (!date) return 'Nunca';
+    return date.toLocaleTimeString('pt-BR');
+  };
 
   const getTimeSinceLastUpdate = () => {
     if (!lastUpdate) return null;
@@ -22,15 +22,18 @@ export default function RealtimeIndicator({ isPolling, lastUpdate }) {
   return (
     <div className="realtime-indicator">
       <div className="status-dot">
-        <div className={`pulse ${isPolling ? 'active' : ''}`}></div>
+        <div className={`pulse ${isPolling ? 'active' : ''} ${sseConnected ? 'connected' : 'disconnected'}`}></div>
       </div>
       <div className="status-text">
         <span className="status-label">
-          {isPolling ? 'Verificando...' : 'Tempo Real'}
+          {isPolling ? 'Verificando...' : sseConnected ? 'Tempo Real Ativo' : 'Modo Manual'}
         </span>
         <span className="last-update">
           {lastUpdate ? `Atualizado ${getTimeSinceLastUpdate()}` : 'Aguardando dados...'}
         </span>
+        {sseConnected && (
+          <span className="sse-status">🟢 Conectado</span>
+        )}
       </div>
     </div>
   );

@@ -4,6 +4,11 @@ import numpy as np
 import time
 from collections import defaultdict
 from cube_time_logger import create_logger
+from config import (
+    COLOR_CONFIDENCE_THRESHOLD, MAX_DISTANCE_THRESHOLD, MAX_CUBES_SIMULTANEOUS,
+    MIN_STABILITY_FRAMES, MIN_DETECTION_DURATION, MIN_CONSECUTIVE_FRAMES,
+    MAX_MISSED_FRAMES, COOLDOWN_DURATION, MIN_EXIT_FRAMES
+)
 
 class CubeDetector:
     def __init__(self, model_path):
@@ -37,15 +42,15 @@ class CubeDetector:
         self.cube_history = []  # Historico de cubos que sairam
         self.color_total_times = defaultdict(float)  # Tempo total por cor
         
-        # Parametros de tracking melhorados
-        self.max_distance_threshold = 150  # Aumentado para melhor tracking
-        self.color_confidence_threshold = 0.05  # Reduzido para detecção mais rápida
-        self.max_cubes_simultaneous = 6  # Uma para cada cor
+        # Parametros de tracking melhorados (usando configurações)
+        self.max_distance_threshold = MAX_DISTANCE_THRESHOLD
+        self.color_confidence_threshold = COLOR_CONFIDENCE_THRESHOLD
+        self.max_cubes_simultaneous = MAX_CUBES_SIMULTANEOUS
         
         # Sistema de estabilizacao melhorado para evitar duplicatas
         self.color_detection_history = {}  # {color: [detected_colors_list]}
         self.cube_stability_frames = {}  # {color: frame_count}
-        self.min_stability_frames = 5  # Frames minimos para confirmar cor
+        self.min_stability_frames = MIN_STABILITY_FRAMES
         
         # Parametros de estabilizacao
         self.min_color_samples = 2  # Reduzido para detecção mais rápida
@@ -54,18 +59,18 @@ class CubeDetector:
         
         # Sistema de cooldown para evitar detecções duplicadas
         self.color_cooldown = {}  # {color: last_detection_time}
-        self.cooldown_duration = 2.0  # 2 segundos entre detecções da mesma cor
+        self.cooldown_duration = COOLDOWN_DURATION
         
         # Sistema de verificação de saída do cubo
         self.cube_exit_frames = {}  # {color: frames_sem_deteccao}
-        self.min_exit_frames = 10  # Frames mínimos sem detecção para confirmar saída
+        self.min_exit_frames = MIN_EXIT_FRAMES
         
-        # Sistema de debounce temporal - só considera cor após 0.2 segundos contínuo
+        # Sistema de debounce temporal - só considera cor após tempo configurado
         self.color_detection_start = {}  # {color: first_detection_time}
-        self.min_detection_duration = 0.2  # 0.2 segundos mínimo de detecção contínua (ajustável)
+        self.min_detection_duration = MIN_DETECTION_DURATION
         self.color_detection_frames = {}  # {color: frames_consecutivos_detectados}
-        self.min_consecutive_frames = 6  # ~0.2 segundo a 30fps
-        self.max_missed_frames = 2  # Máximo de frames perdidos permitidos
+        self.min_consecutive_frames = MIN_CONSECUTIVE_FRAMES
+        self.max_missed_frames = MAX_MISSED_FRAMES
         self.color_missed_frames = {}  # {color: frames_perdidos_consecutivos}
         
         # Debug - mostra informacoes de deteccao

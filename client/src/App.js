@@ -7,12 +7,12 @@ import RealtimeNotifications from './components/RealtimeNotifications';
 import { DataProvider, useDataContext } from './contexts/DataContext';
 
 function AppContent() {
-  const { isPolling, lastUpdate } = useDataContext();
+  const { isPolling, lastUpdate, sseConnected } = useDataContext();
 
   return (
     <div className='App'>
       <Header />
-      <RealtimeIndicator isPolling={isPolling} lastUpdate={lastUpdate} />
+      <RealtimeIndicator isPolling={isPolling} lastUpdate={lastUpdate} sseConnected={sseConnected} />
       <Notifications />
       <Charts />
       <Recents />
