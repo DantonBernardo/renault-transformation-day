@@ -201,3 +201,28 @@
   background: linear-gradient(135deg, #172A4B, #214484, #172A4B);
   transition: all 0.3s ease;
 }
+
+/* Animação para novos grupos */
+.new-group {
+  animation: highlightNew 3s ease-out;
+  background: linear-gradient(90deg, rgba(244, 198, 44, 0.1), rgba(244, 198, 44, 0.05)) !important;
+}
+
+.new-group td {
+  background: linear-gradient(90deg, rgba(244, 198, 44, 0.1), rgba(244, 198, 44, 0.05)) !important;
+  border-left: 4px solid #F4C62C !important;
+}
+
+@keyframes highlightNew {
+  0% {
+    background: rgba(244, 198, 44, 0.3);
+    transform: scale(1.02);
+  }
+  50% {
+    background: rgba(244, 198, 44, 0.2);
+  }
+  100% {
+    background: rgba(244, 198, 44, 0.05);
+    transform: scale(1);
+  }
+}

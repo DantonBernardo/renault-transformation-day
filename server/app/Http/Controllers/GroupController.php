@@ -6,16 +6,22 @@ use App\Models\Cube;
 use App\Models\GroupOfThree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class GroupController extends Controller
 {
     public function groupCubes()
     {
-        $groupCubes = GroupOfThree::with('cubes')
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-        return response()->json($groupCubes);
+        return Cache::remember('groups_with_cubes', 60, function () {
+            $groupCubes = GroupOfThree::with(['cubes' => function($query) {
+                    $query->select('id', 'group_id', 'color', 'face', 'individual_time');
+                }])
+                ->select('id', 'group_time', 'created_at')
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+            return response()->json($groupCubes);
+        });
     }
 
     public function getGroupById($id)
@@ -46,6 +52,26 @@ class GroupController extends Controller
             'color' => $color,
             'average_individual_time' => $average
         ]);
+    }
+
+    public function averagesByAllColors()
+    {
+        return Cache::remember('averages_by_all_colors', 300, function () {
+            $averages = Cube::selectRaw('color, AVG(individual_time) as average_individual_time')
+                ->groupBy('color')
+                ->pluck('average_individual_time', 'color')
+                ->toArray();
+
+            // Garante que todas as cores estejam presentes
+            $colors = ['WHITE', 'RED', 'ORANGE', 'BLUE', 'YELLOW', 'GREEN'];
+            $result = [];
+            
+            foreach ($colors as $color) {
+                $result[$color] = $averages[$color] ?? 0;
+            }
+
+            return response()->json($result);
+        });
     }
 
     public function delayed()
@@ -126,11 +152,14 @@ class GroupController extends Controller
     }
 
     public function latestGroupTimes(){
-        $groupTimes = GroupOfThree::orderBy('created_at', 'desc')
-            ->take(7)
-            ->get(['id', 'group_time']);
+        return Cache::remember('latest_group_times', 30, function () {
+            $groupTimes = GroupOfThree::select('id', 'group_time', 'created_at')
+                ->orderBy('created_at', 'desc')
+                ->take(7)
+                ->get();
 
-        return response()->json($groupTimes);
+            return response()->json($groupTimes);
+        });
     }
 
     public function store(Request $request)
@@ -170,7 +199,14 @@ class GroupController extends Controller
             ]);
 
             // retorna o grupo com os cubos carregados
-            return response()->json($group->load('cubes'), 201);
+            $result = $group->load('cubes');
+            
+            // Invalida caches relacionados
+            Cache::forget('groups_with_cubes');
+            Cache::forget('latest_group_times');
+            Cache::forget('averages_by_all_colors');
+            
+            return response()->json($result, 201);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Ocorreu um erro ao processar sua requisição.'
