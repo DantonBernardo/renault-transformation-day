@@ -1,10 +1,10 @@
-import json
 import os
 import requests
 import threading
 import time
 from datetime import datetime
 from collections import defaultdict
+from config import EXPECTED_CUBE_TIME, EXPECTED_GROUP_TIME, TOLERANCE
 
 class CubeTimeLogger:
     def __init__(self):
@@ -24,9 +24,7 @@ class CubeTimeLogger:
         self.group_number = 1
         self.all_groups = []  # Todos os grupos finalizados
         
-        # Arquivo de log
-        self.log_file = f"cube_times_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
-        self.json_file = f"cube_times_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        # Logs removidos - não são mais necessários
         
         # Logger de tempos iniciado silenciosamente
         
@@ -112,7 +110,7 @@ class CubeTimeLogger:
         }
 
         self.all_groups.append(group_data)
-        self.save_to_files()
+        # Logs removidos - não são mais necessários
         self.analyze_delays()
 
         # ------------------------------
@@ -160,35 +158,6 @@ class CubeTimeLogger:
         self.current_group = []
         self.group_number += 1
     
-    def save_to_files(self):
-        """Salva os dados nos arquivos de texto e JSON"""
-        # Salva em arquivo de texto simples
-        with open(self.log_file, 'w', encoding='utf-8') as f:
-            f.write("=== RELATÓRIO DE TEMPOS DOS CUBOS ===\n")
-            f.write(f"Data/Hora: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n")
-            
-            for group in self.all_groups:
-                f.write(f"GRUPO {group['group_number']}:\n")
-                f.write(f"Data/Hora: {group['timestamp']}\n")
-                f.write("-" * 40 + "\n")
-                
-                for i, cube in enumerate(group['cubes'], 1):
-                    f.write(f"{i}. Cor: {cube['color'].upper()}\n")
-                    f.write(f"   Face: {cube['face_name']}\n")
-                    f.write(f"   Tempo: {cube['individual_time']:.1f}s\n\n")
-                
-                f.write(f"TEMPO TOTAL DO GRUPO: {group['total_group_time']:.1f}s\n")
-                f.write("=" * 50 + "\n\n")
-        
-        # Salva em arquivo JSON para dados estruturados
-        json_data = {
-            'session_start': datetime.now().isoformat(),
-            'groups_of_three': self.all_groups,
-            'total_groups': len(self.all_groups)
-        }
-        
-        with open(self.json_file, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, indent=2, ensure_ascii=False)
     
     def get_current_group_info(self):
         """Retorna informações do grupo atual"""
@@ -231,16 +200,17 @@ class CubeTimeLogger:
     def analyze_delays(self):
         """
         Analisa o último grupo comparando com a média esperada:
-        - Tempo médio por cubo: 5s
-        - Tempo médio total: 15s
-        Detecta cubos ou grupos adiantados/atrasados em ±5s
+        - Tempo médio por cubo: configurável via config.py
+        - Tempo médio total: sempre 3x o tempo individual
+        Detecta cubos ou grupos adiantados/atrasados conforme tolerância configurada
         """
         if not self.all_groups:
             return
 
-        expected_cube_time = 5.0       # tempo esperado por cubo (s)
-        expected_group_time = 15.0     # tempo esperado por grupo (s)
-        tolerance = 5.0                # margem de tolerância (s)
+        # Usa constantes do arquivo de configuração
+        expected_cube_time = EXPECTED_CUBE_TIME
+        expected_group_time = EXPECTED_GROUP_TIME
+        tolerance = TOLERANCE
 
         last_group = self.all_groups[-1]
         total_time = last_group["total_group_time"]
@@ -267,7 +237,7 @@ class CubeTimeLogger:
 
         # Análise do grupo total
         total_diff = total_time - expected_group_time
-        print("\nTempo total esperado: 15.00s")
+        print(f"\nTempo total esperado: {expected_group_time:.2f}s")
         print(f"Desvio total do grupo: {total_diff:+.2f}s")
 
         # Diagnóstico geral

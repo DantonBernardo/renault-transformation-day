@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
 import "./style.css";
 import Loading from '../Loading';
+import { useDataContext } from '../../contexts/DataContext';
 
 export default function NotificationsTable() {
-  const [notifications, setNotifications] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { notifications, loading } = useDataContext();
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const res = await fetch("http://127.0.0.1:8000/api/notifications");
-        const data = await res.json();
-        setNotifications(data);
-      } catch (err) {
-        console.error("Erro ao buscar notificações:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
-
-  if (loading) {
+  if (loading.notifications) {
     return <Loading />;
   }
 

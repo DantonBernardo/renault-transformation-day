@@ -23,6 +23,14 @@
   position: relative;
 }
 
+.pulse.connected {
+  background: #4CAF50;
+}
+
+.pulse.disconnected {
+  background: #ff9800;
+}
+
 .pulse.active {
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -70,4 +78,10 @@
 .last-update {
   color: #666;
   font-size: 0.75rem;
+}
+
+.sse-status {
+  color: #4CAF50;
+  font-size: 0.7rem;
+  font-weight: 500;
 }

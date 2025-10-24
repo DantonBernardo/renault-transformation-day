@@ -12,7 +12,8 @@ class GroupController extends Controller
 {
     public function groupCubes()
     {
-        return Cache::remember('groups_with_cubes', 60, function () {
+        $cacheTime = getTimingConfig('groups_cache_time') * 60; // Converte minutos para segundos
+        return Cache::remember('groups_with_cubes', $cacheTime, function () {
             $groupCubes = GroupOfThree::with(['cubes' => function($query) {
                     $query->select('id', 'group_id', 'color', 'face', 'individual_time');
                 }])
@@ -56,7 +57,8 @@ class GroupController extends Controller
 
     public function averagesByAllColors()
     {
-        return Cache::remember('averages_by_all_colors', 300, function () {
+        $cacheTime = getTimingConfig('averages_cache_time') * 60; // Converte minutos para segundos
+        return Cache::remember('averages_by_all_colors', $cacheTime, function () {
             $averages = Cube::selectRaw('color, AVG(individual_time) as average_individual_time')
                 ->groupBy('color')
                 ->pluck('average_individual_time', 'color')
@@ -81,11 +83,12 @@ class GroupController extends Controller
             ->get();
 
         $delayed = [];
+        $delayedThreshold = getTimingConfig('delayed_group_threshold');
 
         foreach ($groups as $group) {
-            if ($group->group_time > 10) {
+            if ($group->group_time > $delayedThreshold) {
                 $maxCube = $group->cubes->sortByDesc('individual_time')->first();
-                $diff = ($group->group_time) - 10;
+                $diff = ($group->group_time) - $delayedThreshold;
 
                 $delayed[] = [
                     'type' => 'high_time',
@@ -112,11 +115,12 @@ class GroupController extends Controller
             ->get();
 
         $early = [];
+        $earlyThreshold = getTimingConfig('early_group_threshold');
 
         foreach ($groups as $group) {
-            if ($group->group_time < 2) {
+            if ($group->group_time < $earlyThreshold) {
                 $minCube = $group->cubes->sortBy('individual_time')->first();
-                $diff = 2 - $group->group_time;
+                $diff = $earlyThreshold - $group->group_time;
 
                 $early[] = [
                     'type' => 'low_time',
@@ -152,7 +156,8 @@ class GroupController extends Controller
     }
 
     public function latestGroupTimes(){
-        return Cache::remember('latest_group_times', 30, function () {
+        $cacheTime = getTimingConfig('latest_times_cache_time') * 60; // Converte minutos para segundos
+        return Cache::remember('latest_group_times', $cacheTime, function () {
             $groupTimes = GroupOfThree::select('id', 'group_time', 'created_at')
                 ->orderBy('created_at', 'desc')
                 ->take(7)
