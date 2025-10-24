@@ -1,10 +1,10 @@
 import './style.css';
 
 export default function RealtimeIndicator({ isPolling, lastUpdate }) {
-  const formatTime = (date) => {
-    if (!date) return 'Nunca';
-    return date.toLocaleTimeString('pt-BR');
-  };
+  // const formatTime = (date) => {
+  //   if (!date) return 'Nunca';
+  //   return date.toLocaleTimeString('pt-BR');
+  // };
 
   const getTimeSinceLastUpdate = () => {
     if (!lastUpdate) return null;

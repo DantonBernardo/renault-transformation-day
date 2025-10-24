@@ -9,7 +9,7 @@ Chart.register(LineController, LineElement, PointElement, CategoryScale, LinearS
 export default function LatestGroupTimeRealTime() {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
-  const { data, loading, error } = useApiPolling("http://127.0.0.1:8000/api/latest-group-times", {}, 10000); // Atualiza a cada 10 segundos
+  const { data, loading, error } = useApiPolling(`${process.env.REACT_APP_API_URL}latest-group-times`, {}, 10000); // Atualiza a cada 10 segundos
 
   const chartData = useMemo(() => {
     if (!data || data.length === 0) {

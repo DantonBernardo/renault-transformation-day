@@ -9,7 +9,7 @@ export default function NotificationsTable() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/notifications");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}notifications`);
         const data = await res.json();
         setNotifications(data);
       } catch (err) {

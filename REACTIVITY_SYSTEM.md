@@ -1,4 +1,5 @@
 # Sistema de Reatividade em Tempo Real - Renault Transformation Day
+./start-all
 
 ## 🚀 Sistema Implementado
 
