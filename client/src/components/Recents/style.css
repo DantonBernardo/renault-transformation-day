@@ -2,6 +2,7 @@
   padding: 2rem 0;
   max-width: 1650px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .recents h2 {
@@ -23,6 +24,7 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(23, 42, 75, 0.1);
   border: 1px solid #eaeaea;
+  table-layout: fixed;
 }
 
 .recents-table thead {
@@ -39,11 +41,17 @@
   letter-spacing: 0.5px;
 }
 
+.recents-table th:nth-child(1) { width: 10%; } /* ID */
+.recents-table th:nth-child(2) { width: 15%; } /* Tempo do Grupo */
+.recents-table th:nth-child(3) { width: 20%; } /* Data */
+.recents-table th:nth-child(4) { width: 55%; } /* Detalhes dos Cubos */
+
 .recents-table td {
   padding: 1.5rem;
   border-bottom: 1px solid #f0f0f0;
   color: #333;
   background: #fff;
+  vertical-align: top;
 }
 
 .recents-table tr:last-child td {
@@ -64,6 +72,7 @@
   overflow: hidden;
   border: 1px solid #e2e8f0;
   box-shadow: 0 2px 6px rgba(23, 42, 75, 0.08);
+  table-layout: fixed;
 }
 
 .inner-table thead {
@@ -79,12 +88,19 @@
   letter-spacing: 0.3px;
 }
 
+.inner-table th:nth-child(1) { width: 30%; } /* Cor */
+.inner-table th:nth-child(2) { width: 30%; } /* Face */
+.inner-table th:nth-child(3) { width: 40%; } /* Tempo Individual */
+
 .inner-table td {
   padding: 0.875rem 1rem;
   border-bottom: 1px solid #e2e8f0;
   font-size: 0.85rem;
   color: #475569;
   background: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .inner-table tr:last-child td {
@@ -157,31 +173,161 @@
   margin: 2rem 0;
 }
 
-@media (max-width: 768px) {
+/* RESPONSIVIDADE - Desktop para Mobile */
+@media (max-width: 1700px) {
   .recents {
-    padding: 1rem;
+    max-width: 95vw;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .recents {
+    max-width: 98vw;
+    padding: 1rem 0;
+  }
+  
+  .recents-table th,
+  .recents-table td {
+    padding: 1.25rem 1rem;
+  }
+  
+  .inner-table th,
+  .inner-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .recents-table {
+    table-layout: auto;
+    min-width: 1000px;
+  }
+  
+  .inner-table {
+    min-width: 400px;
   }
   
   .recents h2 {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .recents {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  .recents h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    position: sticky;
+    left: 0;
+    background: white;
+    padding: 0.5rem 0;
+    z-index: 10;
   }
   
   .recents-table {
+    min-width: 900px;
     font-size: 0.9rem;
   }
   
   .recents-table th,
   .recents-table td {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
+  }
+  
+  .inner-table {
+    min-width: 350px;
   }
   
   .inner-table th,
   .inner-table td {
-    padding: 0.75rem;
+    padding: 0.5rem 0.375rem;
+    font-size: 0.75rem;
+  }
+  
+  .recents-table td:nth-child(2) {
+    font-size: 1rem;
   }
 }
 
+@media (max-width: 480px) {
+  .recents {
+    padding: 0.5rem;
+  }
+  
+  .recents h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .recents-table {
+    min-width: 800px;
+    border-radius: 8px;
+  }
+  
+  .recents-table th,
+  .recents-table td {
+    padding: 0.875rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .inner-table {
+    min-width: 300px;
+  }
+  
+  .inner-table th,
+  .inner-table td {
+    padding: 0.375rem 0.25rem;
+    font-size: 0.7rem;
+  }
+  
+  .inner-table td:first-child {
+    padding-left: 1.25rem;
+  }
+  
+  .inner-table td:first-child::before {
+    left: 0.375rem;
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .recents {
+    padding: 0.25rem;
+  }
+  
+  .recents-table {
+    min-width: 700px;
+  }
+  
+  .recents-table th,
+  .recents-table td {
+    padding: 0.75rem 0.375rem;
+    font-size: 0.8rem;
+  }
+  
+  .inner-table {
+    min-width: 280px;
+  }
+}
+
+/* Estados de tabela vazia */
+.recents-table:empty::before {
+  content: "Nenhum registro encontrado";
+  display: block;
+  text-align: center;
+  padding: 3rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Animações */
 .recents-table {
   animation: slideUp 0.6s ease-out;
 }
@@ -225,4 +371,23 @@
     background: rgba(244, 198, 44, 0.05);
     transform: scale(1);
   }
+}
+
+/* Scroll suave para mobile */
+.recents {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .recents-table,
+  .new-group {
+    animation: none;
+  }
+}
+
+/* Foco para navegação por teclado */
+.recents-table tr:focus-within {
+  outline: 2px solid #172A4B;
+  outline-offset: -2px;
 }

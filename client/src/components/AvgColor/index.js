@@ -72,7 +72,7 @@ export default function AvgColor() {
     <div className="avgColor">
       <h2 className="chart-title">Tempo médio por cor</h2>
       <div className="chart-container">
-        <canvas ref={chartRef} width={400} height={400}></canvas>
+        <canvas ref={chartRef} />
       </div>
     </div>
   );

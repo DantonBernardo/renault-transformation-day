@@ -2,11 +2,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
+  padding: 1rem 2rem 0;
   font-size: 0.85rem;
-  margin: 10px 0;
+  max-width: 1650px;
+  margin: 0 auto;
 }
 
 .status-dot {
@@ -70,4 +69,10 @@
 .last-update {
   color: #666;
   font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .realtime-indicator {
+    padding-left: 0.75rem;
+  }
 }
