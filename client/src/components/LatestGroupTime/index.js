@@ -80,7 +80,7 @@ export default function LatestGroupTime() {
     <div className="latest-group-time">
       <h2 className="chart-title">Tempos de grupo recentes</h2>
       <div className="chart-container">
-        <canvas ref={chartRef} width={400} height={400}></canvas>
+        <canvas ref={chartRef} />
       </div>
     </div>
   );

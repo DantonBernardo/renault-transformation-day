@@ -152,6 +152,9 @@ class GroupController extends Controller
             return $b->group_id <=> $a->group_id;
         });
 
+        // Pega apenas os 5 primeiros elementos do array
+        $allNotifications = array_slice($allNotifications, 0, 5);
+
         return response()->json($allNotifications);
     }
 

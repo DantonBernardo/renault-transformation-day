@@ -29,7 +29,7 @@ export const DataProvider = ({ children }) => {
 
   const fetchGroups = useCallback(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/groups');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}groups`);
       const data = await response.json();
       
       // Compara dados mais detalhadamente
@@ -59,7 +59,7 @@ export const DataProvider = ({ children }) => {
 
   const fetchAverages = useCallback(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/averages-all-colors');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}averages-all-colors`);
       const data = await response.json();
       
       // Compara se as médias mudaram OU se é o primeiro carregamento
@@ -82,7 +82,7 @@ export const DataProvider = ({ children }) => {
 
   const fetchLatestTimes = useCallback(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/latest-group-times');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}latest-group-times`);
       const data = await response.json();
       
       // Compara dados mais detalhadamente

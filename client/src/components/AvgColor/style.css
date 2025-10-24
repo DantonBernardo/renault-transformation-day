@@ -7,6 +7,20 @@
   border-radius: 12px;
   padding: 20px;
   min-height: 400px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(23, 42, 75, 0.1);
+  min-width: 300px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.chart-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #172A4B;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
 }
 
 .chart-container {
@@ -15,9 +29,108 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
 }
 
 .chart-container canvas {
   max-width: 100%;
   height: auto !important;
+  width: 100% !important;
+}
+
+/* Responsividade para os componentes individuais */
+@media (max-width: 1700px) {
+  .avgColor,
+  .latest-group-time {
+    padding: 18px;
+    min-height: 380px;
+  }
+  
+  .chart-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .avgColor,
+  .latest-group-time {
+    padding: 16px;
+    min-height: 350px;
+    min-width: 280px;
+  }
+  
+  .chart-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .avgColor,
+  .latest-group-time {
+    flex: 0 1 calc(50% - 15px);
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .avgColor,
+  .latest-group-time {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    min-height: 300px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+  
+  .chart-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .avgColor,
+  .latest-group-time {
+    padding: 12px;
+    min-height: 280px;
+    border-radius: 8px;
+  }
+  
+  .chart-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .chart-container {
+    min-height: 250px;
+  }
+}
+
+/* Para telas muito pequenas */
+@media (max-width: 360px) {
+  .avgColor,
+  .latest-group-time {
+    padding: 10px;
+    min-height: 260px;
+  }
+  
+  .chart-title {
+    font-size: 1rem;
+  }
+}
+
+/* Garantir que os gráficos se adaptem corretamente */
+@media (max-width: 768px) {
+  .chart-container canvas {
+    max-height: 300px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container canvas {
+    max-height: 250px !important;
+  }
 }

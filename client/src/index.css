@@ -30,3 +30,22 @@ h1{
 h2, td, th{
   font-family: 'Archivo', sans-serif;
 }
+
+::-webkit-scrollbar{
+  width: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb{
+  background: var(--primary-color);
+  transition: 1s ease;
+}
+
+@media (max-width: 840px){
+  ::-webkit-scrollbar{
+    width: 0px;
+  }
+}
